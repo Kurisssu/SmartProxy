@@ -4,7 +4,7 @@
       "UpstreamHttpMethod": [ "Get" ],
       "UpstreamPathTemplate": "/{url}",
       "DownstreamPathTemplate": "/{url}",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
           "Host": "smartproxy-movieapi-1.azurewebsites.net",
@@ -27,7 +27,7 @@
       "UpstreamHttpMethod": [ "Put", "Post", "Delete" ],
       "UpstreamPathTemplate": "/{url}",
       "DownstreamPathTemplate": "/{url}",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
           "Host": "smartproxy-movieapi-1.azurewebsites.net",
