@@ -7,19 +7,19 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 9001
+          "Host": "smartproxy-movieapi-1.azurewebsites.net",
+          "Port": 443
         },
         {
-          "Host": "localhost",
-          "Port": 9002
+          "Host": "smartproxy-movieapi-2.azurewebsites.net",
+          "Port": 443
         }
       ],
       "LoadBalancerOptions": {
         "Type": "RoundRobin"
       },
       "FileCacheOptions": {
-        "TtlSeconds": 10,
+        "TtlSeconds": 10, 
         "Region": "MovieCacheRegion"
       }
     },
@@ -30,12 +30,12 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 9001
+          "Host": "smartproxy-movieapi-1.azurewebsites.net",
+          "Port": 443
         },
         {
-          "Host": "localhost",
-          "Port": 9002
+          "Host": "smartproxy-movieapi-2.azurewebsites.net",
+          "Port": 443
         }
       ],
       "LoadBalancerOptions": {
