@@ -7,15 +7,11 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "smartproxy-movieapi-1.azurewebsites.net",
+          "Host": "sp-movieapi-1-cicd.azurewebsites.net",
           "Port": 443
         },
         {
-          "Host": "smartproxy-movieapi-2.azurewebsites.net",
-          "Port": 443
-        },
-        {
-          "Host": "smartproxy-movieapi-3.azurewebsites.net",
+          "Host": "sp-movieapi-2-cicd.azurewebsites.net",
           "Port": 443
         }
       ],
@@ -34,15 +30,11 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "smartproxy-movieapi-1.azurewebsites.net",
+          "Host": "sp-movieapi-1-cicd.azurewebsites.net",
           "Port": 443
         },
         {
-          "Host": "smartproxy-movieapi-2.azurewebsites.net",
-          "Port": 443
-        },
-        {
-          "Host": "smartproxy-movieapi-3.azurewebsites.net",
+          "Host": "sp-movieapi-2-cicd.azurewebsites.net",
           "Port": 443
         }
       ],
