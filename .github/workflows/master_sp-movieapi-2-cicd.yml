@@ -7,6 +7,8 @@ on:
   push:
     branches:
       - master
+    paths:
+      - 'MovieAPI/**'
   workflow_dispatch:
 
 jobs:
@@ -18,22 +20,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up .NET Core
+      - name: Set up .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.x'
+          dotnet-version: '8.0.x'
+
+      - name: Restore
+        run: dotnet restore MovieAPI/MovieAPI.csproj
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build MovieAPI/MovieAPI.csproj --configuration Release --no-restore
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
+        run: dotnet publish MovieAPI/MovieAPI.csproj -c Release -o ./publish
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
-          name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          name: movieapi2-app
+          path: ./publish
 
   deploy:
     runs-on: windows-latest
@@ -46,7 +51,8 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
-          name: .net-app
+          name: movieapi2-app
+          path: .
       
       - name: Login to Azure
         uses: azure/login@v2
@@ -62,4 +68,3 @@ jobs:
           app-name: 'sp-movieapi-2-cicd'
           slot-name: 'Production'
           package: .
-          
