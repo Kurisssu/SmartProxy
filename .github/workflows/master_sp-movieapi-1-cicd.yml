@@ -1,0 +1,69 @@
+name: Build and deploy ASP.Net Core app to Azure Web App - sp-movieapi-1-cicd
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'MovieAPI/**'
+      - '.github/workflows/master-sp-movieapi-1-cicd.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore
+        run: dotnet restore MovieAPI/MovieAPI.csproj
+
+      - name: Build
+        run: dotnet build MovieAPI/MovieAPI.csproj --configuration Release --no-restore
+
+      - name: Publish
+        run: dotnet publish MovieAPI/MovieAPI.csproj -c Release -o ./publish
+
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v4
+        with:
+          name: movieapi1-app
+          path: ./publish
+
+  deploy:
+    runs-on: windows-latest
+    needs: build
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v4
+        with:
+          name: movieapi1-app
+          path: .
+
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_4CC9E861F2134516B211CC8A127C76E8 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_A52CA9214CF14F878515311661AD04DA }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_F8C7C4E2CBBD46E8908AB78F2AE25857 }}
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: 'sp-movieapi-1-cicd'
+          slot-name: 'Production'
+          package: .
+
