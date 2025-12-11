@@ -6,7 +6,7 @@ on:
       - master
     paths:
       - 'MovieAPI/**'
-      - '.github/workflows/build-and-deploy-sp-movieapi-1-cicd.yml'
+      - '.github/workflows/master-sp-movieapi-1-cicd.yml'
   workflow_dispatch:
 
 jobs:
@@ -66,3 +66,4 @@ jobs:
           app-name: 'sp-movieapi-1-cicd'
           slot-name: 'Production'
           package: .
+
