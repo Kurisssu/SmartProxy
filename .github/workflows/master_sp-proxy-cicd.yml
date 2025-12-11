@@ -55,4 +55,17 @@ jobs:
           name: proxy-app
           path: .
       
-      - name: Login to Azu
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_06FC74305DB548F194D93456D5E5FBB6 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_E19391FD4F064AAFAEEE4AC199D6E4EA }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_B937ACDC1EA742B6B686B45370853711 }}
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: 'sp-proxy-cicd'
+          slot-name: 'Production'
+          package: .
