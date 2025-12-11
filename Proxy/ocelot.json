@@ -13,6 +13,10 @@
         {
           "Host": "smartproxy-movieapi-2.azurewebsites.net",
           "Port": 443
+        },
+        {
+          "Host": "smartproxy-movieapi-3.azurewebsites.net",
+          "Port": 443
         }
       ],
       "LoadBalancerOptions": {
@@ -35,6 +39,10 @@
         },
         {
           "Host": "smartproxy-movieapi-2.azurewebsites.net",
+          "Port": 443
+        },
+        {
+          "Host": "smartproxy-movieapi-3.azurewebsites.net",
           "Port": 443
         }
       ],
