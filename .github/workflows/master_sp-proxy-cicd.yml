@@ -9,7 +9,7 @@ on:
       - master
     paths:
       - 'Proxy/**'
-      - '.github/workflows/master-sp-proxy-cicd.yml'
+      - '.github/workflows/master_sp-proxy-cicd.yml'
   workflow_dispatch:
 
 jobs:
