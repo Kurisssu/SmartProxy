@@ -7,6 +7,9 @@ on:
   push:
     branches:
       - master
+    paths:
+      - 'Proxy/**'
+      - '.github/workflows/master-sp-proxy-cicd.yml'
   workflow_dispatch:
 
 jobs:
@@ -18,22 +21,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up .NET Core
+      - name: Set up .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.x'
+          dotnet-version: '8.0.x'
+
+      - name: Restore
+        run: dotnet restore Proxy/Proxy.csproj
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build Proxy/Proxy.csproj --configuration Release --no-restore
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
+        run: dotnet publish Proxy/Proxy.csproj -c Release -o ./publish
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
-          name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          name: proxy-app
+          path: ./publish
 
   deploy:
     runs-on: windows-latest
@@ -46,20 +52,7 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
-          name: .net-app
+          name: proxy-app
+          path: .
       
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_06FC74305DB548F194D93456D5E5FBB6 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_E19391FD4F064AAFAEEE4AC199D6E4EA }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_B937ACDC1EA742B6B686B45370853711 }}
-
-      - name: Deploy to Azure Web App
-        id: deploy-to-webapp
-        uses: azure/webapps-deploy@v3
-        with:
-          app-name: 'sp-proxy-cicd'
-          slot-name: 'Production'
-          package: .
-          
+      - name: Login to Azu
