@@ -74,7 +74,7 @@ namespace SyncNode.Services
         /// </summary>
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            _timer = new Timer(DoSendWork, null, TimeSpan.Zero, TimeSpan.FromSeconds(15));
+            _timer = new Timer(DoSendWork, null, TimeSpan.Zero, TimeSpan.FromSeconds(2));
 
             return Task.CompletedTask;
         }

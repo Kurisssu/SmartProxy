@@ -19,7 +19,7 @@
         "Type": "RoundRobin"
       },
       "FileCacheOptions": {
-        "TtlSeconds": 10, 
+        "TtlSeconds": 2, 
         "Region": "MovieCacheRegion"
       }
     },
